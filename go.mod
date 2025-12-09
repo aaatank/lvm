@@ -1,4 +1,4 @@
-module lvm
+module github.com/aaatank/lvm
 
 go 1.20
 
