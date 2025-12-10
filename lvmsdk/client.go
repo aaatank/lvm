@@ -3,6 +3,7 @@ package lvmsdk
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"github.com/tetratelabs/wazero"
 	"github.com/tetratelabs/wazero/api"
 	"github.com/tetratelabs/wazero/imports/wasi_snapshot_preview1"
@@ -106,7 +107,7 @@ func (c *Client) Call(ctx context.Context, req *CallRequest) (*Response, error) 
 	return w.call(ctx, req)
 }
 
-func NewClient(do_url string, call_url string, parallelism int) *Client {
+func NewClient(addr string, parallelism int) *Client {
 	c := &Client{
 		cli: &http.Client{
 			Transport: &http.Transport{
@@ -126,12 +127,13 @@ func NewClient(do_url string, call_url string, parallelism int) *Client {
 	}
 	wasi_snapshot_preview1.MustInstantiate(ctx, r)
 	config := wazero.NewModuleConfig().WithStartFunctions("_initialize").WithSysWalltime()
+	doApi,callApi := fmt.Sprintf("http://%s/lvm/do", addr), fmt.Sprintf("http://%s/lvm/call", addr)
 	for i := 0; i < parallelism; i++ {
 		mod, err := r.InstantiateWithConfig(ctx, wasm, config)
 		if err != nil {
 			panic(err)
 		}
-		c.workers <- newWorker(do_url, call_url, mod)
+		c.workers <- newWorker(doApi, callApi, mod)
 	}
 	return c
 }
