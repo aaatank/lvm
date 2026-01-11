@@ -3,7 +3,6 @@ package lvmsdk
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"github.com/tetratelabs/wazero"
 	"github.com/tetratelabs/wazero/api"
 	"github.com/tetratelabs/wazero/imports/wasi_snapshot_preview1"
@@ -13,8 +12,10 @@ import (
 )
 
 type Client struct {
-	cli     *http.Client
-	workers chan *worker
+	cli              *http.Client
+	workers          chan *worker
+	candidates       chan *worker
+	memoryLimitPages uint32
 }
 
 func (c *Client) post(ctx context.Context, m api.Module, in_ptr uint32, in_len uint32) (out_ptr uint64) {
@@ -71,8 +72,8 @@ func (c *Client) post(ctx context.Context, m api.Module, in_ptr uint32, in_len u
 		return
 	}
 	defer resp.Body.Close()
-	if resp.StatusCode>=400 {
-		content,_ := io.ReadAll(resp.Body)
+	if resp.StatusCode >= 400 {
+		content, _ := io.ReadAll(resp.Body)
 		rep.Code = resp.StatusCode
 		rep.Msg = "unknown error"
 		rep.Reason = string(content)
@@ -93,6 +94,10 @@ func (c *Client) post(ctx context.Context, m api.Module, in_ptr uint32, in_len u
 
 func (c *Client) Do(ctx context.Context, req *DoRequest) (*Response, error) {
 	w := <-c.workers
+	if w.mod.Memory().Size()/65536 > c.memoryLimitPages {
+		w.mod.Close(ctx)
+		w = <-c.candidates
+	}
 	defer func() {
 		c.workers <- w
 	}()
@@ -101,13 +106,17 @@ func (c *Client) Do(ctx context.Context, req *DoRequest) (*Response, error) {
 
 func (c *Client) Call(ctx context.Context, req *CallRequest) (*Response, error) {
 	w := <-c.workers
+	if w.mod.Memory().Size()/65536 > c.memoryLimitPages {
+		w.mod.Close(ctx)
+		w = <-c.candidates
+	}
 	defer func() {
 		c.workers <- w
 	}()
 	return w.call(ctx, req)
 }
 
-func NewClient(addr string, parallelism int) *Client {
+func NewClient(addr string, parallelism int, memoryLimitPages uint32) *Client {
 	c := &Client{
 		cli: &http.Client{
 			Transport: &http.Transport{
@@ -116,7 +125,9 @@ func NewClient(addr string, parallelism int) *Client {
 				MaxIdleConnsPerHost: 1200,
 			},
 		},
-		workers: make(chan *worker, parallelism),
+		workers:          make(chan *worker, parallelism),
+		candidates:       make(chan *worker, 1),
+		memoryLimitPages: memoryLimitPages,
 	}
 	ctx := context.Background()
 	r := wazero.NewRuntime(ctx)
@@ -127,13 +138,21 @@ func NewClient(addr string, parallelism int) *Client {
 	}
 	wasi_snapshot_preview1.MustInstantiate(ctx, r)
 	config := wazero.NewModuleConfig().WithStartFunctions("_initialize").WithSysWalltime()
-	doApi,callApi := fmt.Sprintf("http://%s/lvm/do", addr), fmt.Sprintf("http://%s/lvm/call", addr)
 	for i := 0; i < parallelism; i++ {
 		mod, err := r.InstantiateWithConfig(ctx, wasm, config)
 		if err != nil {
 			panic(err)
 		}
-		c.workers <- newWorker(doApi, callApi, mod)
+		c.workers <- newWorker(addr, mod)
 	}
+	go func() {
+		for {
+			mod, err := r.InstantiateWithConfig(ctx, wasm, config)
+			if err != nil {
+				panic(err)
+			}
+			c.candidates <- newWorker(addr, mod)
+		}
+	}()
 	return c
 }

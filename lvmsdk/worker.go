@@ -8,14 +8,13 @@ import (
 )
 
 type worker struct {
-	do_url   string
-	call_url string
-	mod      api.Module
+	addr string
+	mod  api.Module
 }
 
 func (w *worker) do(ctx context.Context, req *DoRequest) (*Response, error) {
 	input, _ := json.Marshal(map[string]string{
-		"url":     w.do_url,
+		"addr":    w.addr,
 		"fn":      req.Fn,
 		"content": req.Content,
 	})
@@ -43,7 +42,7 @@ func (w *worker) do(ctx context.Context, req *DoRequest) (*Response, error) {
 
 func (w *worker) call(ctx context.Context, req *CallRequest) (*Response, error) {
 	input, _ := json.Marshal(map[string]interface{}{
-		"url":      w.call_url,
+		"addr":     w.addr,
 		"fn":       req.Fn,
 		"content":  req.Content,
 		"function": req.Function,
@@ -71,10 +70,9 @@ func (w *worker) call(ctx context.Context, req *CallRequest) (*Response, error) 
 	return rep, nil
 }
 
-func newWorker(do_url string, call_url string, mod api.Module) *worker {
+func newWorker(addr string, mod api.Module) *worker {
 	return &worker{
-		do_url:   do_url,
-		call_url: call_url,
-		mod:      mod,
+		addr: addr,
+		mod:  mod,
 	}
 }
