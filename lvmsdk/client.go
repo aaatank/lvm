@@ -116,7 +116,7 @@ func (c *Client) Call(ctx context.Context, req *CallRequest) (*Response, error) 
 	return w.call(ctx, req)
 }
 
-func NewClient(addr string, token string, header Header, parallelism int, memoryLimitPages uint32) *Client {
+func NewClient(conf *Config) *Client {
 	c := &Client{
 		cli: &http.Client{
 			Transport: &http.Transport{
@@ -125,9 +125,9 @@ func NewClient(addr string, token string, header Header, parallelism int, memory
 				MaxIdleConnsPerHost: 1200,
 			},
 		},
-		workers:          make(chan *worker, parallelism),
+		workers:          make(chan *worker, conf.Parallelism),
 		candidates:       make(chan *worker, 1),
-		memoryLimitPages: memoryLimitPages,
+		memoryLimitPages: conf.MemoryLimitPages,
 	}
 	ctx := context.Background()
 	r := wazero.NewRuntime(ctx)
@@ -138,12 +138,12 @@ func NewClient(addr string, token string, header Header, parallelism int, memory
 	}
 	wasi_snapshot_preview1.MustInstantiate(ctx, r)
 	config := wazero.NewModuleConfig().WithStartFunctions("_initialize").WithSysWalltime()
-	for i := 0; i < parallelism; i++ {
+	for i := 0; i < conf.Parallelism; i++ {
 		mod, err := r.InstantiateWithConfig(ctx, wasm, config)
 		if err != nil {
 			panic(err)
 		}
-		c.workers <- newWorker(addr, token, header, mod)
+		c.workers <- newWorker(conf.Addr, conf.Token, conf.Header, mod)
 	}
 	go func() {
 		for {
@@ -151,7 +151,7 @@ func NewClient(addr string, token string, header Header, parallelism int, memory
 			if err != nil {
 				panic(err)
 			}
-			c.candidates <- newWorker(addr, token, header, mod)
+			c.candidates <- newWorker(conf.Addr, conf.Token, conf.Header, mod)
 		}
 	}()
 	return c
