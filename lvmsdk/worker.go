@@ -4,17 +4,35 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/google/uuid"
 	"github.com/tetratelabs/wazero/api"
+	"strings"
 )
 
 type worker struct {
-	addr string
-	mod  api.Module
+	addr   string
+	token  string
+	header Header
+	mod    api.Module
 }
 
 func (w *worker) do(ctx context.Context, req *DoRequest) (*Response, error) {
-	input, _ := json.Marshal(map[string]string{
-		"addr":    w.addr,
+	input, _ := json.Marshal(map[string]interface{}{
+		"addr":  w.addr,
+		"token": w.token,
+		"header": func() map[string]string {
+			m := map[string]string{}
+			if w.header != nil {
+				m = w.header(ctx)
+			}
+			if m == nil {
+				m = map[string]string{}
+			}
+			if _, ok := m["X-Request-Id"]; !ok {
+				m["X-Request-Id"] = strings.Replace(uuid.New().String(), "-", "", -1)
+			}
+			return m
+		}(),
 		"fn":      req.Fn,
 		"content": req.Content,
 	})
@@ -42,7 +60,21 @@ func (w *worker) do(ctx context.Context, req *DoRequest) (*Response, error) {
 
 func (w *worker) call(ctx context.Context, req *CallRequest) (*Response, error) {
 	input, _ := json.Marshal(map[string]interface{}{
-		"addr":     w.addr,
+		"addr":  w.addr,
+		"token": w.token,
+		"header": func() map[string]string {
+			m := map[string]string{}
+			if w.header != nil {
+				m = w.header(ctx)
+			}
+			if m == nil {
+				m = map[string]string{}
+			}
+			if _, ok := m["X-Request-Id"]; !ok {
+				m["X-Request-Id"] = strings.Replace(uuid.New().String(), "-", "", -1)
+			}
+			return m
+		}(),
 		"fn":       req.Fn,
 		"content":  req.Content,
 		"function": req.Function,
@@ -70,9 +102,11 @@ func (w *worker) call(ctx context.Context, req *CallRequest) (*Response, error) 
 	return rep, nil
 }
 
-func newWorker(addr string, mod api.Module) *worker {
+func newWorker(addr string, token string, header Header, mod api.Module) *worker {
 	return &worker{
-		addr: addr,
-		mod:  mod,
+		addr:   addr,
+		token:  token,
+		header: header,
+		mod:    mod,
 	}
 }

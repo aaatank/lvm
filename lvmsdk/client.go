@@ -116,7 +116,7 @@ func (c *Client) Call(ctx context.Context, req *CallRequest) (*Response, error) 
 	return w.call(ctx, req)
 }
 
-func NewClient(addr string, parallelism int, memoryLimitPages uint32) *Client {
+func NewClient(addr string, token string, header Header, parallelism int, memoryLimitPages uint32) *Client {
 	c := &Client{
 		cli: &http.Client{
 			Transport: &http.Transport{
@@ -143,7 +143,7 @@ func NewClient(addr string, parallelism int, memoryLimitPages uint32) *Client {
 		if err != nil {
 			panic(err)
 		}
-		c.workers <- newWorker(addr, mod)
+		c.workers <- newWorker(addr, token, header, mod)
 	}
 	go func() {
 		for {
@@ -151,7 +151,7 @@ func NewClient(addr string, parallelism int, memoryLimitPages uint32) *Client {
 			if err != nil {
 				panic(err)
 			}
-			c.candidates <- newWorker(addr, mod)
+			c.candidates <- newWorker(addr, token, header, mod)
 		}
 	}()
 	return c
