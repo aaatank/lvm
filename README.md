@@ -2134,8 +2134,8 @@ database, string, Database name.
 db, table, Database instance.
 ###### Since: 0.1
 ###### <font color="DeepSkyBlue">aggregate</font>
-####### Language: lua
-####### Describe:
+###### Language: lua
+###### Describe:
 Aggregate data in the database.  
 Optional parameters are as follows:  
 let, any.  
@@ -2148,25 +2148,25 @@ batchSize, number(int32).
 allowDiskUse, bool.  
 bypassDocumentValidation, bool.  
 custom, table(k/v).
-####### Params:
+###### Params:
 pipeline, table, Pipeline.  
 opts, table(k/v)(optional), Optional parameters (use as needed).  
-####### Returns:
+###### Returns:
 res, table(1d) or nil, Returns result data on success, returns nil on failure.  
 err, nil or string, Error message, returns nil on success, returns error message string on failure.  
-####### Since: 0.1
+###### Since: 0.1
 ###### <font color="DeepSkyBlue">collection</font>
-####### Language: lua
-####### Describe:
+###### Language: lua
+###### Describe:
 Get a collection.
-####### Params:
+###### Params:
 collection, string, Collection name.  
-####### Returns:
+###### Returns:
 coll, table, Collection instance.  
-####### Since: 0.1
-####### <font color="DeepSkyBlue">aggregate</font>
-######## Language: lua
-######## Describe:
+###### Since: 0.1
+###### <font color="DeepSkyBlue">aggregate</font>
+###### Language: lua
+###### Describe:
 Aggregate data in the collection.  
 Optional parameters are as follows:  
 let, any.  
@@ -2179,16 +2179,16 @@ batchSize, number(int32).
 allowDiskUse, bool.  
 bypassDocumentValidation, bool.  
 custom, table(k/v).
-######## Params:
+###### Params:
 pipeline, table, Pipeline.  
 opts, table(k/v)(optional), Optional parameters (use as needed).  
-######## Returns:
+###### Returns:
 res, table(1d) or nil, Returns result data on success, returns nil on failure.  
 err, nil or string, Error message, returns nil on success, returns error message string on failure.  
-######## Since: 0.1
-####### <font color="DeepSkyBlue">count_documents</font>
-######## Language: lua
-######## Describe:
+###### Since: 0.1
+###### <font color="DeepSkyBlue">count_documents</font>
+###### Language: lua
+###### Describe:
 Count documents.  
 Optional parameters are as follows:  
 hint, any.  
@@ -2197,86 +2197,86 @@ collation, table(k/v).
 maxTime, number(int), in seconds.  
 limit, number(int64).  
 skip, number(int64).
-######## Params:
+###### Params:
 filter, table(k, v), filter.  
 opts, table(k/v)(optional), Optional parameters (use as needed).  
-######## Returns:
+###### Returns:
 res, number(int64) or nil, Returns the document count on success, returns nil on failure.  
 err, nil or string, Error message, returns nil on success, returns error message string on failure.  
-######## Since: 0.1
-####### <font color="DeepSkyBlue">delete_many</font>
-######## Language: lua
-######## Describe:
+###### Since: 0.1
+###### <font color="DeepSkyBlue">delete_many</font>
+###### Language: lua
+###### Describe:
 Delete multiple documents.  
 Optional parameters are as follows:  
 let, any.  
 comment, string.  
 hint, any.  
 collation, table(k/v).
-######## Params:
+###### Params:
 filter, table(k/v), Filter.  
 opts, table(k/v)(optional), Optional parameters (use as needed).  
-######## Returns:
+###### Returns:
 res, number(int64) or nil, Returns the number of deleted documents on success, returns nil on failure.  
 err, nil or string, Error message, returns nil on success, returns error message string on failure.  
-######## Since: 0.1
-####### <font color="DeepSkyBlue">delete_one</font>
-######## Language: lua
-######## Describe:
+###### Since: 0.1
+###### <font color="DeepSkyBlue">delete_one</font>
+###### Language: lua
+###### Describe:
 Delete one document.  
 Optional parameters are as follows:  
 let, any.  
 comment, string.  
 hint, any.  
 collation, table(k/v).
-######## Params:
+###### Params:
 filter, table(k/v), Filter.  
 opts, table(k/v)(optional), Optional parameters (use as needed).  
-######## Returns:
+###### Returns:
 res, number(int64) or nil, Returns the number of deleted documents on success, returns nil on failure.  
 err, nil or string, Error message, returns nil on success, returns error message string on failure.  
-######## Since: 0.1
-####### <font color="DeepSkyBlue">distinct</font>
-######## Language: lua
-######## Describe:
+###### Since: 0.1
+###### <font color="DeepSkyBlue">distinct</font>
+###### Language: lua
+###### Describe:
 Get distinct values of a specified field in the collection.  
 Optional parameters are as follows:  
 comment, string.  
 collation, table(k/v).  
 maxTime, number(int).
-######## Params:
+###### Params:
 field, string, Field to deduplicate.  
 filter, table(k, v), filter.  
 opts, table(k/v)(optional), Optional parameters (use as needed).  
-######## Returns:
+###### Returns:
 res, table(1d) or nil, Returns the list of distinct values on success, returns nil on failure.  
 err, nil or string, Error message, returns nil on success, returns error message string on failure.  
-######## Since: 0.1
-####### <font color="DeepSkyBlue">drop</font>
-######## Language: lua
-######## Describe:
+###### Since: 0.1
+###### <font color="DeepSkyBlue">drop</font>
+###### Language: lua
+###### Describe:
 Drop the collection.
-######## Params:
+###### Params:
 None.
-######## Returns:
+###### Returns:
 err, nil or string, Error message, returns nil on success, returns error message string on failure.  
-######## Since: 0.1
-####### <font color="DeepSkyBlue">estimated_document_count</font>
-######## Language: lua
-######## Describe:
+###### Since: 0.1
+###### <font color="DeepSkyBlue">estimated_document_count</font>
+###### Language: lua
+###### Describe:
 Estimate document count.  
 Optional parameters are as follows:  
 comment, string.  
 maxTime, number(int), in seconds.
-######## Params:
+###### Params:
 opts, table(k/v)(optional), Optional parameters (use as needed).  
-######## Returns:
+###### Returns:
 res, number(int64) or nil, Returns the estimated document count on success, returns nil on failure.  
 err, nil or string, Error message, returns nil on success, returns error message string on failure.  
-######## Since: 0.1
-####### <font color="DeepSkyBlue">find</font>
-######## Language: lua
-######## Describe:
+###### Since: 0.1
+###### <font color="DeepSkyBlue">find</font>
+###### Language: lua
+###### Describe:
 Find documents.  
 Optional parameters are as follows:  
 projection, table(k/v).  
@@ -2298,16 +2298,16 @@ returnKey, bool.
 showRecordID, bool.  
 noCursorTimeout, bool.  
 cursorType, number(int8).
-######## Params:
+###### Params:
 filter, table(k/v), Filter.  
 opts, table(k/v)(optional), Optional parameters (use as needed).  
-######## Returns:
+###### Returns:
 res, table(1d) or nil, Returns result data on success, returns nil on failure.  
 err, nil or string, Error message, returns nil on success, returns error message string on failure.  
-######## Since: 0.1
-####### <font color="DeepSkyBlue">find_and_dump</font>
-######## Language: lua
-######## Describe:
+###### Since: 0.1
+###### <font color="DeepSkyBlue">find_and_dump</font>
+###### Language: lua
+###### Describe:
 Find documents and return results as JSON, parameters are the same as find.  
 Optional parameters are as follows:  
 projection, table(k/v).  
@@ -2329,16 +2329,16 @@ returnKey, bool.
 showRecordID, bool.  
 noCursorTimeout, bool.  
 cursorType, number(int8).
-######## Params:
+###### Params:
 filter, table(k/v), Filter.  
 opts, table(k/v)(optional), Optional parameters (use as needed).  
-######## Returns:
+###### Returns:
 res, string or nil, Returns result data as JSON string on success, returns nil on failure.  
 err, nil or string, Error message, returns nil on success, returns error message string on failure.  
-######## Since: 0.1
-####### <font color="DeepSkyBlue">find_for_each</font>
-######## Language: lua
-######## Describe:
+###### Since: 0.1
+###### <font color="DeepSkyBlue">find_for_each</font>
+###### Language: lua
+###### Describe:
 Find documents and iterate over each document using a callback.  
 Optional parameters are as follows:  
 projection, table(k/v).  
@@ -2360,16 +2360,16 @@ returnKey, bool.
 showRecordID, bool.  
 noCursorTimeout, bool.  
 cursorType, number(int8).
-######## Params:
+###### Params:
 filter, table(k/v), Filter.  
 callback, func(doc string), Callback function.  
 opts, table(k/v)(optional), Optional parameters (use as needed).  
-######## Returns:
+###### Returns:
 err, nil or string, Error message, returns nil on success, returns error message string on failure.  
-######## Since: 0.1
-####### <font color="DeepSkyBlue">find_one</font>
-######## Language: lua
-######## Describe:
+###### Since: 0.1
+###### <font color="DeepSkyBlue">find_one</font>
+###### Language: lua
+###### Describe:
 Find one document.  
 Optional parameters are as follows:  
 projection, table(k/v).  
@@ -2384,16 +2384,16 @@ max, any.
 hint, any.  
 returnKey, bool.  
 showRecordID, bool.
-######## Params:
+###### Params:
 filter, table(k/v), Filter.  
 opts, table(k/v)(optional), Optional parameters (use as needed).  
-######## Returns:
+###### Returns:
 res, table or nil, Returns result data on success, returns nil on failure.  
 err, nil or string, Error message, returns nil on success, returns error message string on failure.  
-######## Since: 0.1
-####### <font color="DeepSkyBlue">find_one_and_delete</font>
-######## Language: lua
-######## Describe:
+###### Since: 0.1
+###### <font color="DeepSkyBlue">find_one_and_delete</font>
+###### Language: lua
+###### Describe:
 Find and delete one document.  
 Optional parameters are as follows:  
 projection, table(k/v).  
@@ -2402,16 +2402,16 @@ collation, table(kv).
 comment, string.  
 maxTime, number(int).  
 hint, any.
-######## Params:
+###### Params:
 filter, table(k/v), Filter.  
 opts, table(k/v)(optional), Optional parameters (use as needed).  
-######## Returns:
+###### Returns:
 res, table or nil, Returns result data on success, returns nil on failure.  
 err, nil or string, Error message, returns nil on success, returns error message string on failure.  
-######## Since: 0.1
-####### <font color="DeepSkyBlue">find_one_and_dump</font>
-######## Language: lua
-######## Describe:
+###### Since: 0.1
+###### <font color="DeepSkyBlue">find_one_and_dump</font>
+###### Language: lua
+###### Describe:
 Find one document and return result as JSON, parameters are the same as find_one.  
 Optional parameters are as follows:  
 projection, table(k/v).  
@@ -2426,16 +2426,16 @@ max, any.
 hint, any.  
 returnKey, bool.  
 showRecordID, bool.
-######## Params:
+###### Params:
 filter, table(k/v), Filter.  
 opts, table(k/v)(optional), Optional parameters (use as needed).  
-######## Returns:
+###### Returns:
 res, string or nil, Returns result data as JSON string on success, returns nil on failure.  
 err, nil or string, Error message, returns nil on success, returns error message string on failure.  
-######## Since: 0.1
-####### <font color="DeepSkyBlue">find_one_and_replace</font>
-######## Language: lua
-######## Describe:
+###### Since: 0.1
+###### <font color="DeepSkyBlue">find_one_and_replace</font>
+###### Language: lua
+###### Describe:
 Find and replace one document.  
 Optional parameters are as follows:  
 projection, table(k/v).  
@@ -2448,17 +2448,17 @@ let, any.
 bypassDocumentValidation, bool.  
 returnDocument, number(int8).  
 upsert, bool.
-######## Params:
+###### Params:
 filter, table(k/v), Filter.  
 replace, table(k/v), Replacement document.  
 opts, table(k/v)(optional), Optional parameters (use as needed).  
-######## Returns:
+###### Returns:
 res, table or nil, Returns result data on success, returns nil on failure.  
 err, nil or string, Error message, returns nil on success, returns error message string on failure.  
-######## Since: 0.1
-####### <font color="DeepSkyBlue">find_one_and_update</font>
-######## Language: lua
-######## Describe:
+###### Since: 0.1
+###### <font color="DeepSkyBlue">find_one_and_update</font>
+###### Language: lua
+###### Describe:
 Find and update one document.  
 Optional parameters are as follows:  
 projection, table(k/v).  
@@ -2471,65 +2471,65 @@ let, any.
 bypassDocumentValidation, bool.  
 returnDocument, number(int8).  
 upsert, bool.
-######## Params:
+###### Params:
 filter, table(k/v), Filter.  
 update, table(k/v), Update data.  
 opts, table(k/v)(optional), Optional parameters (use as needed).  
-######## Returns:
+###### Returns:
 res, table or nil, Returns result data on success, returns nil on failure.  
 err, nil or string, Error message, returns nil on success, returns error message string on failure.  
-######## Since: 0.1
-####### <font color="DeepSkyBlue">indexes</font>
-######## Language: lua
-######## Describe:
+###### Since: 0.1
+###### <font color="DeepSkyBlue">indexes</font>
+###### Language: lua
+###### Describe:
 Get indexes.
-######## Params:
+###### Params:
 None.
-######## Returns:
+###### Returns:
 res, table, Index object.  
-######## Since: 0.1
-######## <font color="DeepSkyBlue">list</font>
-######### Language: lua
-######### Describe:
+###### Since: 0.1
+###### <font color="DeepSkyBlue">list</font>
+###### Language: lua
+###### Describe:
 List indexes in the collection.
-######### Params:
+###### Params:
 None.
-######### Returns:
+###### Returns:
 res, table or nil, Returns result data on success, returns nil on failure.  
 err, nil or string, Error message, returns nil on success, returns error message string on failure.  
-######### Since: 0.1
-####### <font color="DeepSkyBlue">insert_many</font>
-######## Language: lua
-######## Describe:
+###### Since: 0.1
+###### <font color="DeepSkyBlue">insert_many</font>
+###### Language: lua
+###### Describe:
 Insert multiple documents.  
 Optional parameters are as follows:  
 comment, string.  
 bypassDocumentValidation, bool.  
 ordered, bool.
-######## Params:
+###### Params:
 docs, table(1d), Documents.  
 opts, table(k/v)(optional), Optional parameters (use as needed).  
-######## Returns:
+###### Returns:
 res, table(1d) or nil, Returns the list of inserted document IDs on success, returns nil on failure.  
 err, nil or string, Error message, returns nil on success, returns error message string on failure.  
-######## Since: 0.1
-####### <font color="DeepSkyBlue">insert_one</font>
-######## Language: lua
-######## Describe:
+###### Since: 0.1
+###### <font color="DeepSkyBlue">insert_one</font>
+###### Language: lua
+###### Describe:
 Insert one document.  
 Optional parameters are as follows:  
 comment, string.  
 bypassDocumentValidation, bool.
-######## Params:
+###### Params:
 doc, table, Document.  
 opts, table(k/v)(optional), Optional parameters (use as needed).  
-######## Returns:
+###### Returns:
 res, any or nil, Returns the inserted document ID on success, returns nil on failure.  
 err, nil or string, Error message, returns nil on success, returns error message string on failure.  
-######## Since: 0.1
-####### <font color="DeepSkyBlue">replace_one</font>
-######## Language: lua
-######## Describe:
+###### Since: 0.1
+###### <font color="DeepSkyBlue">replace_one</font>
+###### Language: lua
+###### Describe:
 Replace one document.  
 Optional parameters are as follows:  
 let, any.  
@@ -2538,28 +2538,28 @@ bypassDocumentValidation, bool.
 hint, any.  
 upsert, bool.  
 collation, table(k/v).
-######## Params:
+###### Params:
 filter, table(k/v), Filter.  
 replace, table(k, v), replacement document.  
 opts, table(k/v)(optional), Optional parameters (use as needed).  
-######## Returns:
+###### Returns:
 res, table(k/v) or nil, Returns operation result data on success, returns nil on failure.  
 err, nil or string, Error message, returns nil on success, returns error message string on failure.  
-######## Since: 0.1
-####### <font color="DeepSkyBlue">schema</font>
-######## Language: lua
-######## Describe:
+###### Since: 0.1
+###### <font color="DeepSkyBlue">schema</font>
+###### Language: lua
+###### Describe:
 Get the schema of the collection.
-######## Params:
+###### Params:
 sample, number(int), Sample size, optional, default 500.  
 timeout, number(int), Timeout in seconds, optional, default 10s.  
-######## Returns:
+###### Returns:
 res, table(k/v) or nil, Returns result data on success, returns nil on failure.  
 err, nil or string, Error message, returns nil on success, returns error message string on failure.  
-######## Since: 0.1
-####### <font color="DeepSkyBlue">update_by_id</font>
-######## Language: lua
-######## Describe:
+###### Since: 0.1
+###### <font color="DeepSkyBlue">update_by_id</font>
+###### Language: lua
+###### Describe:
 Update a document by ID.  
 Optional parameters are as follows:  
 let, any.  
@@ -2568,17 +2568,17 @@ bypassDocumentValidation, bool.
 hint, any.  
 upsert, bool.  
 collation, table(k/v).
-######## Params:
+###### Params:
 id, any, _id.  
 update, table(k/v), Update data.  
 opts, table(k/v)(optional), Optional parameters (use as needed).  
-######## Returns:
+###### Returns:
 res, table(k/v) or nil, Returns operation result data on success, returns nil on failure.  
 err, nil or string, Error message, returns nil on success, returns error message string on failure.  
-######## Since: 0.1
-####### <font color="DeepSkyBlue">update_many</font>
-######## Language: lua
-######## Describe:
+###### Since: 0.1
+###### <font color="DeepSkyBlue">update_many</font>
+###### Language: lua
+###### Describe:
 Update multiple documents.  
 Optional parameters are as follows:  
 let, any.  
@@ -2587,17 +2587,17 @@ bypassDocumentValidation, bool.
 hint, any.  
 upsert, bool.  
 collation, table(k/v).
-######## Params:
+###### Params:
 filter, table(k/v), Filter.  
 update, table(k/v), Update data.  
 opts, table(k/v)(optional), Optional parameters (use as needed).  
-######## Returns:
+###### Returns:
 res, table(k/v) or nil, Returns operation result data on success, returns nil on failure.  
 err, nil or string, Error message, returns nil on success, returns error message string on failure.  
-######## Since: 0.1
-####### <font color="DeepSkyBlue">update_one</font>
-######## Language: lua
-######## Describe:
+###### Since: 0.1
+###### <font color="DeepSkyBlue">update_one</font>
+###### Language: lua
+###### Describe:
 Update one document.  
 Optional parameters are as follows:  
 let, any.  
@@ -2606,40 +2606,40 @@ bypassDocumentValidation, bool.
 hint, any.  
 upsert, bool.  
 collation, table(k/v).
-######## Params:
+###### Params:
 filter, table(k/v), Filter.  
 update, table(k/v), Update data.  
 opts, table(k/v)(optional), Optional parameters (use as needed).  
-######## Returns:
+###### Returns:
 res, table(k/v) or nil, Returns operation result data on success, returns nil on failure.  
 err, nil or string, Error message, returns nil on success, returns error message string on failure.  
-######## Since: 0.1
+###### Since: 0.1
 ###### <font color="DeepSkyBlue">list_collection_names</font>
-####### Language: lua
-####### Describe:
+###### Language: lua
+###### Describe:
 List collection names in the database.  
 Optional parameters are as follows:  
 batchSize, number(int32).  
 authorizedCollections, bool.  
 nameOnly, bool.  
 Note: Currently the filter parameter only works with types.mongo_bsond(), needs improvement.
-####### Params:
+###### Params:
 filter, table(k/v), Filter.  
 opts, table(k/v)(optional), Optional parameters (use as needed).  
-####### Returns:
+###### Returns:
 res, table(1d) or nil, Returns the list of collection names on success, returns nil on failure.  
 err, nil or string, Error message, returns nil on success, returns error message string on failure.  
-####### Since: 0.1
+###### Since: 0.1
 ###### <font color="DeepSkyBlue">run_command</font>
-####### Language: lua
-####### Describe:
+###### Language: lua
+###### Describe:
 Execute a MongoDB command.
-####### Params:
+###### Params:
 command, table(k/v), Command.  
-####### Returns:
+###### Returns:
 res, table or nil, Returns result data on success, returns nil on failure.  
 err, nil or string, Error message, returns nil on success, returns error message string on failure.  
-####### Since: 0.1
+###### Since: 0.1
 ##### <font color="DeepSkyBlue">list_database_names</font>
 ###### Language: lua
 ###### Describe:
@@ -2881,12 +2881,12 @@ err, nil or string, Call error message, returns nil on success, returns error me
 #### <font color="DeepSkyBlue">client</font>
 ##### <font color="DeepSkyBlue">consumer</font>
 ###### <font color="DeepSkyBlue">consume</font>
-####### Language: lua
-####### Describe:
+###### Language: lua
+###### Describe:
 Consume messages.
-####### Params:
+###### Params:
 process, function(msg) bool, Message processing function (msg is a table {topic=string, producer_name=string, properties=table(k/v), payload=string, id=string, publish_time=int(unix ms), redelivery_count=int}).  
-####### Returns:
+###### Returns:
 err, string or nil, Error message, returns nil on success, returns error message string on failure.
 ##### <font color="DeepSkyBlue">create_consumer</font>
 ###### Language: lua
@@ -2911,15 +2911,15 @@ producer, table, Producer instance.
 err, string or nil, Error message, returns nil on success, returns error message string on failure.
 ##### <font color="DeepSkyBlue">producer</font>
 ###### <font color="DeepSkyBlue">publish</font>
-####### Language: lua
-####### Describe:
+###### Language: lua
+###### Describe:
 Publish a message.
-####### Params:
+###### Params:
 properties, table(k/v), Message properties (both keys and values are strings).  
 payload, string, Message body.  
 deliverAfter, number(int), Delivery delay in ms, 0 for no delay.  
 deliverAt, string, Delivery time (yyyy-mm-dd HH:MM:SS), empty for immediate delivery.  
-####### Returns:
+###### Returns:
 messageId, string or nil, Message ID, returns message ID on success, returns nil on failure.  
 err, string or nil, Error message, returns nil on success, returns error message string on failure.
 #### <font color="DeepSkyBlue">open</font>
@@ -2981,45 +2981,45 @@ b, number(int), Number of bytes per counter (0-4, 0 uses bits, 1-4 uses strings)
 res, table, Bloom filter instance.
 ###### Since: 0.1
 ###### <font color="DeepSkyBlue">add</font>
-####### Language: lua
-####### Describe:
+###### Language: lua
+###### Describe:
 Add an element to the Bloom filter.
-####### Params:
+###### Params:
 key, string, Key.  
 data, string, Element data.  
-####### Returns:
+###### Returns:
 err, nil or string, Call error message, returns nil on success, returns error message string on failure.  
-####### Since: 0.1
+###### Since: 0.1
 ###### <font color="DeepSkyBlue">del</font>
-####### Language: lua
-####### Describe:
+###### Language: lua
+###### Describe:
 Delete an element from the Bloom filter.
-####### Params:
+###### Params:
 key, string, Key.  
 data, string, Element data.  
-####### Returns:
+###### Returns:
 err, nil or string, Call error message, returns nil on success, returns error message string on failure.  
-####### Since: 0.1
+###### Since: 0.1
 ###### <font color="DeepSkyBlue">has</font>
-####### Language: lua
-####### Describe:
+###### Language: lua
+###### Describe:
 Check if an element may exist in the Bloom filter.
-####### Params:
+###### Params:
 key, string, Key.  
 data, string, Element data.  
-####### Returns:
+###### Returns:
 res, bool or nil, Returns true or false on success, returns nil on failure.  
 err, nil or string, Call error message, returns nil on success, returns error message string on failure.  
-####### Since: 0.1
+###### Since: 0.1
 ###### <font color="DeepSkyBlue">reset</font>
-####### Language: lua
-####### Describe:
+###### Language: lua
+###### Describe:
 Reset the Bloom filter.
-####### Params:
+###### Params:
 key, string, Key.  
-####### Returns:
+###### Returns:
 err, nil or string, Call error message, returns nil on success, returns error message string on failure.  
-####### Since: 0.1
+###### Since: 0.1
 ##### <font color="DeepSkyBlue">blpop</font>
 ###### Language: lua
 ###### Describe:
@@ -3169,49 +3169,49 @@ None.
 res, table, Rate limiter instance.
 ###### Since: 0.1
 ###### <font color="DeepSkyBlue">allow</font>
-####### Language: lua
-####### Describe:
+###### Language: lua
+###### Describe:
 Rate limit update and check (increment by 1).
-####### Params:
+###### Params:
 key, string, Key.  
 rate, string, Rate (e.g., 10/s, 30/m, 360/h).  
-####### Returns:
+###### Returns:
 res, table or nil, Current state, returns table on success (res.Remaining <= 0 triggers rate limit), returns nil on failure.  
 err, nil or string, Call error message, returns nil on success, returns error message string on failure.  
-####### Since: 0.1
+###### Since: 0.1
 ###### <font color="DeepSkyBlue">allow_at_most</font>
-####### Language: lua
-####### Describe:
+###### Language: lua
+###### Describe:
 Rate limit update and check (increment by at most n).
-####### Params:
+###### Params:
 key, string, Key.  
 rate, string, Rate (e.g., 10/s, 30/m, 360/h).  
 n, number(int), Maximum increment.  
-####### Returns:
+###### Returns:
 res, table or nil, Current state, returns table on success (res.Remaining <= 0 triggers rate limit), returns nil on failure.  
 err, nil or string, Call error message, returns nil on success, returns error message string on failure.  
-####### Since: 0.1
+###### Since: 0.1
 ###### <font color="DeepSkyBlue">allow_n</font>
-####### Language: lua
-####### Describe:
+###### Language: lua
+###### Describe:
 Rate limit update and check (increment by n).
-####### Params:
+###### Params:
 key, string, Key.  
 rate, string, Rate (e.g., 10/s, 30/m, 360/h).  
 n, number(int), Increment.  
-####### Returns:
+###### Returns:
 res, table or nil, Current state, returns table on success (res.Remaining <= 0 triggers rate limit), returns nil on failure.  
 err, nil or string, Call error message, returns nil on success, returns error message string on failure.  
-####### Since: 0.1
+###### Since: 0.1
 ###### <font color="DeepSkyBlue">reset</font>
-####### Language: lua
-####### Describe:
+###### Language: lua
+###### Describe:
 Reset the rate limiter.
-####### Params:
+###### Params:
 key, string, Key.  
-####### Returns:
+###### Returns:
 err, nil or string, Call error message, returns nil on success, returns error message string on failure.  
-####### Since: 0.1
+###### Since: 0.1
 ##### <font color="DeepSkyBlue">llen</font>
 ###### Language: lua
 ###### Describe:
@@ -3887,23 +3887,23 @@ res, table(1d), List of split strings.
 #### <font color="DeepSkyBlue">client</font>
 ##### <font color="DeepSkyBlue">consumer</font>
 ###### <font color="DeepSkyBlue">ack_message</font>
-####### Language: lua
-####### Describe:
+###### Language: lua
+###### Describe:
 Acknowledge a message.
-####### Params:
+###### Params:
 receiptHandle, string, Message receipt handle (msg.ReceiptHandle).  
-####### Returns:
+###### Returns:
 err, string or nil, ACK error message, returns nil on success, returns error message string on failure.
 ###### <font color="DeepSkyBlue">consume_message</font>
-####### Language: lua
-####### Describe:
+###### Language: lua
+###### Describe:
 Consume messages.
-####### Params:
+###### Params:
 numOfMessages, number(int32), Maximum number of messages to consume at once (up to 16).  
 waitseconds, number(int64), Long polling wait time in seconds (up to 30s).  
 msgCallback, function(msg), Message callback function (msg is a table).  
 errCallback, function(err), Error callback function.  
-####### Returns:
+###### Returns:
 None.
 ##### <font color="DeepSkyBlue">get_consumer</font>
 ###### Language: lua
@@ -3927,14 +3927,14 @@ topic, string, Message topic.
 producer, table, Producer instance.
 ##### <font color="DeepSkyBlue">producer</font>
 ###### <font color="DeepSkyBlue">publish_message</font>
-####### Language: lua
-####### Describe:
+###### Language: lua
+###### Describe:
 Publish a message.
-####### Params:
+###### Params:
 messageBody, string, Message body.  
 messageTag, string, Message tag.  
 properties, table(k/v), Message properties (both keys and values are strings).  
-####### Returns:
+###### Returns:
 messageId, string or nil, Message ID, returns message ID on success, returns nil on failure.  
 err, string or nil, Publish error message, returns nil on success, returns error message string on failure.
 #### <font color="DeepSkyBlue">open</font>
