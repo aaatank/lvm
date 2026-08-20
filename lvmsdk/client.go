@@ -55,7 +55,7 @@ func (c *Client) post(ctx context.Context, m api.Module, in_ptr uint32, in_len u
 		rep.Reason = err.Error()
 		return
 	}
-	hreq, err := http.NewRequest("POST", req.Url, strings.NewReader(req.Body))
+	hreq, err := http.NewRequestWithContext(ctx, "POST", req.Url, strings.NewReader(req.Body))
 	if err != nil {
 		rep.Code = 500
 		rep.Msg = "unknown error"
