@@ -109,7 +109,7 @@ func (c *Client) Do[D any](ctx context.Context, req *DoRequest) (*Response[D], e
 }
 
 func (c *Client) Call[P any, D any](ctx context.Context, req *CallRequest[P]) (*Response[D], error) {
-	if err := (&Response[P]{}).check(); err != nil {
+	if err := (&CallRequest[P]{}).check(); err != nil {
 		return nil, err
 	}
 	if err := (&Response[D]{}).check(); err != nil {
