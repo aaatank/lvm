@@ -4,9 +4,10 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/google/uuid"
-	"github.com/tetratelabs/wazero/api"
 	"strings"
+	"uuid"
+
+	"github.com/tetratelabs/wazero/api"
 )
 
 type worker struct {
@@ -16,7 +17,7 @@ type worker struct {
 	mod    api.Module
 }
 
-func (w *worker) do(ctx context.Context, req *DoRequest) (*Response, error) {
+func (w *worker) do[D any](ctx context.Context, req *DoRequest) (*Response[D], error) {
 	input, _ := json.Marshal(map[string]interface{}{
 		"addr":  w.addr,
 		"token": w.token,
@@ -51,14 +52,14 @@ func (w *worker) do(ctx context.Context, req *DoRequest) (*Response, error) {
 	if !ok {
 		return nil, fmt.Errorf("read failed")
 	}
-	rep := &Response{}
+	rep := &Response[D]{}
 	if err := json.Unmarshal(output, rep); err != nil {
 		return nil, err
 	}
 	return rep, nil
 }
 
-func (w *worker) call(ctx context.Context, req *CallRequest) (*Response, error) {
+func (w *worker) call[P any, D any](ctx context.Context, req *CallRequest[P]) (*Response[D], error) {
 	input, _ := json.Marshal(map[string]interface{}{
 		"addr":  w.addr,
 		"token": w.token,
@@ -95,7 +96,7 @@ func (w *worker) call(ctx context.Context, req *CallRequest) (*Response, error) 
 	if !ok {
 		return nil, fmt.Errorf("read failed")
 	}
-	rep := &Response{}
+	rep := &Response[D]{}
 	if err := json.Unmarshal(output, rep); err != nil {
 		return nil, err
 	}

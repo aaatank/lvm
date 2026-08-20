@@ -3,12 +3,13 @@ package lvmsdk
 import (
 	"context"
 	"encoding/json"
-	"github.com/tetratelabs/wazero"
-	"github.com/tetratelabs/wazero/api"
-	"github.com/tetratelabs/wazero/imports/wasi_snapshot_preview1"
 	"io"
 	"net/http"
 	"strings"
+
+	"github.com/tetratelabs/wazero"
+	"github.com/tetratelabs/wazero/api"
+	"github.com/tetratelabs/wazero/imports/wasi_snapshot_preview1"
 )
 
 type Client struct {
@@ -92,7 +93,10 @@ func (c *Client) post(ctx context.Context, m api.Module, in_ptr uint32, in_len u
 	return
 }
 
-func (c *Client) Do(ctx context.Context, req *DoRequest) (*Response, error) {
+func (c *Client) Do[D any](ctx context.Context, req *DoRequest) (*Response[D], error) {
+	if err := (&Response[D]{}).check(); err != nil {
+		return nil, err
+	}
 	w := <-c.workers
 	if w.mod.Memory().Size()/65536 > c.memoryLimitPages {
 		w.mod.Close(ctx)
@@ -101,10 +105,16 @@ func (c *Client) Do(ctx context.Context, req *DoRequest) (*Response, error) {
 	defer func() {
 		c.workers <- w
 	}()
-	return w.do(ctx, req)
+	return w.do[D](ctx, req)
 }
 
-func (c *Client) Call(ctx context.Context, req *CallRequest) (*Response, error) {
+func (c *Client) Call[P any, D any](ctx context.Context, req *CallRequest[P]) (*Response[D], error) {
+	if err := (&Response[P]{}).check(); err != nil {
+		return nil, err
+	}
+	if err := (&Response[D]{}).check(); err != nil {
+		return nil, err
+	}
 	w := <-c.workers
 	if w.mod.Memory().Size()/65536 > c.memoryLimitPages {
 		w.mod.Close(ctx)
@@ -113,7 +123,7 @@ func (c *Client) Call(ctx context.Context, req *CallRequest) (*Response, error) 
 	defer func() {
 		c.workers <- w
 	}()
-	return w.call(ctx, req)
+	return w.call[P, D](ctx, req)
 }
 
 func NewClient(conf *Config) *Client {
