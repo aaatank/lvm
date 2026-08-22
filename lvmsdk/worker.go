@@ -18,7 +18,7 @@ type worker struct {
 }
 
 func (w *worker) do[D any](ctx context.Context, req *DoRequest) (*Response[D], error) {
-	input, _ := json.Marshal(map[string]interface{}{
+	input, _ := json.Marshal(map[string]any{
 		"addr":  w.addr,
 		"token": w.token,
 		"header": func() map[string]string {
@@ -60,7 +60,7 @@ func (w *worker) do[D any](ctx context.Context, req *DoRequest) (*Response[D], e
 }
 
 func (w *worker) call[P any, D any](ctx context.Context, req *CallRequest[P]) (*Response[D], error) {
-	input, _ := json.Marshal(map[string]interface{}{
+	input, _ := json.Marshal(map[string]any{
 		"addr":  w.addr,
 		"token": w.token,
 		"header": func() map[string]string {

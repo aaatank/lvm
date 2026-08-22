@@ -26,10 +26,10 @@ func (c *Client) post(ctx context.Context, m api.Module, in_ptr uint32, in_len u
 		Body   string            `json:"body"`
 	}{}
 	var rep struct {
-		Code   int         `json:"code"`
-		Msg    string      `json:"msg"`
-		Reason string      `json:"reason"`
-		Data   interface{} `json:"data"`
+		Code   int    `json:"code"`
+		Msg    string `json:"msg"`
+		Reason string `json:"reason"`
+		Data   any    `json:"data"`
 	}
 	defer func() {
 		content, _ := json.Marshal(rep)
