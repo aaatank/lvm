@@ -18,9 +18,15 @@ type worker struct {
 }
 
 func (w *worker) do[D any](ctx context.Context, req *DoRequest) (*Response[D], error) {
+	addr, token := func() (string, string) {
+		if p := getProxy(ctx); p != nil {
+			return p.addr, p.token
+		}
+		return w.addr, w.token
+	}()
 	input, _ := json.Marshal(map[string]any{
-		"addr":  w.addr,
-		"token": w.token,
+		"addr":  addr,
+		"token": token,
 		"header": func() map[string]string {
 			m := map[string]string{}
 			if w.header != nil {
@@ -60,9 +66,15 @@ func (w *worker) do[D any](ctx context.Context, req *DoRequest) (*Response[D], e
 }
 
 func (w *worker) call[P any, D any](ctx context.Context, req *CallRequest[P]) (*Response[D], error) {
+	addr, token := func() (string, string) {
+		if p := getProxy(ctx); p != nil {
+			return p.addr, p.token
+		}
+		return w.addr, w.token
+	}()
 	input, _ := json.Marshal(map[string]any{
-		"addr":  w.addr,
-		"token": w.token,
+		"addr":  addr,
+		"token": token,
 		"header": func() map[string]string {
 			m := map[string]string{}
 			if w.header != nil {
