@@ -22,3 +22,19 @@ func getProxy(ctx context.Context) *proxy {
 	}
 	return nil
 }
+
+func WithAsync(ctx context.Context, url string) context.Context {
+	if url == "" {
+		url = "no"
+	}
+	return context.WithValue(ctx, "lvm_callback_url", url)
+}
+
+func getCallbackUrl(ctx context.Context) string {
+	if v := ctx.Value("lvm_callback_url"); v != nil {
+		if s, ok := v.(string); ok {
+			return s
+		}
+	}
+	return ""
+}

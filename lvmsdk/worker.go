@@ -38,6 +38,9 @@ func (w *worker) do[D any](ctx context.Context, req *DoRequest) (*Response[D], e
 			if _, ok := m["X-Request-Id"]; !ok {
 				m["X-Request-Id"] = strings.Replace(uuid.New().String(), "-", "", -1)
 			}
+			if s := getCallbackUrl(ctx); s != "" {
+				m["X-Callback-Url"] = s
+			}
 			return m
 		}(),
 		"fn":      req.Fn,
@@ -85,6 +88,9 @@ func (w *worker) call[P any, D any](ctx context.Context, req *CallRequest[P]) (*
 			}
 			if _, ok := m["X-Request-Id"]; !ok {
 				m["X-Request-Id"] = strings.Replace(uuid.New().String(), "-", "", -1)
+			}
+			if s := getCallbackUrl(ctx); s != "" {
+				m["X-Callback-Url"] = s
 			}
 			return m
 		}(),
