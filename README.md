@@ -777,7 +777,7 @@ res, string, The retrieved configuration value.
 ##### Describe:
 Load a custom .cfg configuration file.
 ##### Params:
-fn, 配置文件路径, If the path is relative, it is relative to the working directory.
+fn, The config filepath, if the path is relative, it is relative to the working directory.
 ##### Returns:
 res, table(k/v) or nil, Returns configuration data on success, returns nil on failure.  
 err, nil or string, Call error message, returns nil on success, returns error message string on failure.
@@ -787,7 +787,7 @@ err, nil or string, Call error message, returns nil on success, returns error me
 ##### Describe:
 Load a custom .lst configuration file.
 ##### Params:
-fn, 配置文件路径, If the path is relative, it is relative to the working directory.
+fn, The config filepath, if the path is relative, it is relative to the working directory.
 ##### Returns:
 res, table(1d) or nil, Returns configuration data on success, returns nil on failure.  
 err, nil or string, Call error message, returns nil on success, returns error message string on failure.
