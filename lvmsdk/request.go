@@ -18,7 +18,7 @@ type CallRequest[P any] struct {
 }
 
 func (cr *CallRequest[P]) check() error {
-	v := reflect.ValueOf(cr.Params)
+	v := reflect.TypeOf(cr.Params)
 	if v.Kind() == reflect.Pointer {
 		v = v.Elem()
 	}

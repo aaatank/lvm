@@ -13,7 +13,7 @@ type Response[D any] struct {
 }
 
 func (r *Response[D]) check() error {
-	v := reflect.ValueOf(r.Data)
+	v := reflect.TypeOf(r.Data)
 	if v.Kind() == reflect.Pointer {
 		v = v.Elem()
 	}
